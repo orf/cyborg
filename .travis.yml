@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+# command to install dependencies
+install:
+  - pip install --upgrade pip pytest
+  - pip install .
+script: py.test -l -v test/

@@ -1,7 +1,0 @@
-setup.py
-cyborg/__init__.py
-cyborg.egg-info/PKG-INFO
-cyborg.egg-info/SOURCES.txt
-cyborg.egg-info/dependency_links.txt
-cyborg.egg-info/requires.txt
-cyborg.egg-info/top_level.txt

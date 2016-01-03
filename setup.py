@@ -2,15 +2,17 @@ from setuptools import setup
 
 setup(
     name='cyborg',
-    version='',
+    version='0.2',
     packages=['cyborg'],
-    url='',
+    url='https://github.com/orf/cyborg',
     license='',
     author='Orf',
     author_email='tom@tomforb.es',
     description='',
     install_requires=[
-        "aio.pipes",
-        "aiohttp"
+        "lxml",
+        "aiopipes",
+        "aiohttp",
+        'cssselect'
     ]
 )
