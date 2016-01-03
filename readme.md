@@ -34,3 +34,31 @@ The pipeline has several stages:
 
     3. `scrape_reviews.parallel(5)`
         - This starts 5 parallel tasks to scrape the reviews from a particular takeaway.
+
+
+# Writing a scraper
+
+A scraper is just a simple function that takes the page response and returns one or more tasks to be processed by
+functions further down the pipeline. Here's a simple one from the examples directory:
+
+    @scraper("http://www.just-eat.co.uk/london-{data}-takeaway")
+    def scrape_places(data, response, output):
+        for place in response.find(".restaurant"):
+            if place.has_class("offlineRestaurant"):
+                continue
+
+            rating = place.get("p.rating a", None)
+            if not rating:
+                continue
+
+            yield from output({
+                "url": rating.attr["href"],
+                "name": place.get("h2.name").text,
+                "id": int(place.attr["data-restaurant-id"]),
+                "page": 1,
+                "reviews": []
+            })
+
+This goes through a list of places on Just-Eat, does some checks to make sure they are not offline and have been rated
+before, and then yields a new task (using `yield from output`). The output contains all the data we need to carry on
+processing, and this will be passed to the next stage in the pipeline.
